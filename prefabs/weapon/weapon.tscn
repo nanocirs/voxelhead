@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1byfnw0v7wkc"]
+
+[ext_resource type="Script" path="res://scripts/weapons/weapon.gd" id="1_kjnk3"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_abcnf"]
+size = Vector3(0.3, 0.3, 2.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3dsoi"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_hlawp"]
+height = 115.344
+radius = 1.27794
+
+[node name="Weapon" type="Node3D" node_paths=PackedStringArray("muzzle", "muzzle_flash", "enemy_collider")]
+script = ExtResource("1_kjnk3")
+muzzle = NodePath("Muzzle")
+muzzle_flash = NodePath("MuzzleFlash")
+enemy_collider = NodePath("EnemyCollider")
+collision_mask = 2
+
+[node name="Muzzle" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.88, 0.3)
+
+[node name="MuzzleFlash" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.85, -3.03677)
+visible = false
+light_color = Color(1, 1, 0, 1)
+light_energy = 2.454
+light_specular = 8.096
+shadow_enabled = true
+omni_range = 50.935
+omni_attenuation = 1.56917
+
+[node name="MeshWeapon" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 0.385765, -1.429)
+mesh = SubResource("BoxMesh_abcnf")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_3dsoi")
+
+[node name="EnemyCollider" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.915, 1.85, -2.7)
+visible = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -54.3194, 2.38419e-06)
+shape = SubResource("CylinderShape3D_hlawp")

@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://uv3vcablpkoe"]
+
+[ext_resource type="Script" path="res://scripts/entities/enemy.gd" id="1_uxaj8"]
+[ext_resource type="Script" path="res://scripts/components/health_component.gd" id="2_0bcyr"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_u50op"]
+size = Vector3(1.5, 3, 1.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xfd7t"]
+albedo_color = Color(1, 0.623529, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_xmp4u"]
+top_radius = 0.25
+bottom_radius = 0.2
+height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_irsv5"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_rc4ff"]
+top_radius = 0.25
+bottom_radius = 0.25
+height = 0.2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1ukit"]
+size = Vector3(1.5, 3, 1.5)
+
+[node name="EnemyDefault" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_uxaj8")
+speed = 4.0
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("2_0bcyr")
+
+[node name="Mesh" type="Node3D" parent="."]
+
+[node name="MeshBody" type="MeshInstance3D" parent="Mesh"]
+mesh = SubResource("BoxMesh_u50op")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_xfd7t")
+
+[node name="MeshEyeL" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0.410196, 0.695948, -0.82)
+mesh = SubResource("CylinderMesh_xmp4u")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_irsv5")
+
+[node name="MeshEyeR" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, -0.358961, 0.78, -0.82)
+mesh = SubResource("CylinderMesh_rc4ff")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_irsv5")
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_1ukit")

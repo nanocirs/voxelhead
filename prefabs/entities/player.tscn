@@ -1,0 +1,147 @@
+[gd_scene load_steps=15 format=3 uid="uid://bt4rjw7qrpof3"]
+
+[ext_resource type="Script" path="res://scripts/entities/player.gd" id="1_pseh0"]
+[ext_resource type="Script" path="res://scripts/components/health_component.gd" id="2_iatmt"]
+[ext_resource type="PackedScene" uid="uid://c1byfnw0v7wkc" path="res://prefabs/weapon/weapon.tscn" id="2_v3mer"]
+[ext_resource type="Script" path="res://scripts/2d/health_bar.gd" id="3_whtog"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_obhr7"]
+viewport_path = NodePath("HealthComponent/HealthBar")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kh6nw"]
+bg_color = Color(0.0356787, 4.15489e-05, 0.100591, 0.952941)
+skew = Vector2(0.3, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 1
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lw00h"]
+bg_color = Color(0.543314, 0.255836, 1, 1)
+skew = Vector2(0.3, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+shadow_size = 5
+
+[sub_resource type="BoxMesh" id="BoxMesh_3u10u"]
+size = Vector3(1.5, 3.5, 1.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xcw02"]
+albedo_color = Color(0.286275, 0.992157, 0.960784, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bqcnf"]
+size = Vector2(0.6, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ddndw"]
+transparency = 1
+albedo_color = Color(0, 0, 0, 0.968627)
+metallic = 1.0
+metallic_specular = 0.8
+roughness = 0.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_c3kor"]
+size = Vector2(0.2, 0.08)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_h7ocg"]
+height = 3.5
+radius = 1.063
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7pqma"]
+size = Vector3(2.2, 3.3, 2.2)
+
+[node name="PlayerBody" type="CharacterBody3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+script = ExtResource("1_pseh0")
+
+[node name="HealthComponent" type="Node3D" parent="." node_paths=PackedStringArray("health_bar")]
+script = ExtResource("2_iatmt")
+health_bar = NodePath("HealthBar/ProgressBar")
+
+[node name="SpriteHealthBar" type="Sprite3D" parent="HealthComponent"]
+transform = Transform3D(-3.55863e-08, 0, 0.814119, 0, 0.814119, 0, -0.814119, 0, -3.55863e-08, 0, 3.38011, 0)
+pixel_size = 0.0005
+billboard = 1
+double_sided = false
+no_depth_test = true
+fixed_size = true
+texture_filter = 0
+texture = SubResource("ViewportTexture_obhr7")
+
+[node name="HealthBar" type="SubViewport" parent="HealthComponent"]
+transparent_bg = true
+snap_2d_vertices_to_pixel = true
+canvas_item_default_texture_filter = 3
+size = Vector2i(1024, 512)
+
+[node name="ProgressBar" type="ProgressBar" parent="HealthComponent/HealthBar" node_paths=PackedStringArray("health_component")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -27.0
+offset_right = 280.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_kh6nw")
+theme_override_styles/fill = SubResource("StyleBoxFlat_lw00h")
+value = 58.0
+show_percentage = false
+script = ExtResource("3_whtog")
+health_component = NodePath("../..")
+
+[node name="Mesh" type="Node3D" parent="."]
+
+[node name="MeshPlayer" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("BoxMesh_3u10u")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_xcw02")
+
+[node name="MeshSunglasses" type="Node3D" parent="Mesh"]
+transform = Transform3D(1.075, 0, 0, 0, 1.075, 0, 0, 0, 1.075, 0, 0, 0)
+
+[node name="Left" type="MeshInstance3D" parent="Mesh/MeshSunglasses"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.368245, 0.956645, -0.819567)
+mesh = SubResource("PlaneMesh_bqcnf")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ddndw")
+
+[node name="Mid" type="MeshInstance3D" parent="Mesh/MeshSunglasses"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.026565, 1.05252, -0.826874)
+mesh = SubResource("PlaneMesh_c3kor")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ddndw")
+
+[node name="Right" type="MeshInstance3D" parent="Mesh/MeshSunglasses"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.327834, 0.956645, -0.819567)
+mesh = SubResource("PlaneMesh_bqcnf")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ddndw")
+
+[node name="Weapon" parent="." instance=ExtResource("2_v3mer")]
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_h7ocg")
+
+[node name="DamageCollider" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageCollider"]
+shape = SubResource("BoxShape3D_7pqma")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 10, 0)
+light_energy = 2.615
+spot_range = 24.1879

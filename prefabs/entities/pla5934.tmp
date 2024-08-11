@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://bt4rjw7qrpof3"]
+
+[ext_resource type="Script" path="res://scripts/entities/player.gd" id="1_pseh0"]
+[ext_resource type="Script" path="res://scripts/components/health.gd" id="2_jh7t2"]
+[ext_resource type="PackedScene" uid="uid://c1byfnw0v7wkc" path="res://prefabs/weapon/weapon.tscn" id="2_v3mer"]
+[ext_resource type="Script" path="res://scripts/controller/player_controller.gd" id="2_yi803"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_3u10u"]
+size = Vector3(1.5, 3.5, 1.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xcw02"]
+albedo_color = Color(0.286275, 0.992157, 0.960784, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_h7ocg"]
+height = 3.5
+radius = 1.063
+
+[node name="PlayerBody" type="CharacterBody3D" node_paths=PackedStringArray("weapon", "entity_body", "health_component")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+script = ExtResource("1_pseh0")
+weapon = NodePath("Weapon")
+entity_body = NodePath(".")
+health_component = NodePath("HealthComponent")
+
+[node name="PlayerController" type="Node" parent="."]
+script = ExtResource("2_yi803")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("2_jh7t2")
+
+[node name="Mesh" type="Node3D" parent="."]
+
+[node name="MeshPlayer" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("BoxMesh_3u10u")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_xcw02")
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_h7ocg")
+
+[node name="Weapon" parent="." instance=ExtResource("2_v3mer")]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 10, 0)
+light_energy = 2.615
+spot_range = 24.1879
