@@ -37,18 +37,21 @@ script = ExtResource("2_0bcyr")
 [node name="Mesh" type="Node3D" parent="."]
 
 [node name="MeshBody" type="MeshInstance3D" parent="Mesh"]
+layers = 2
 mesh = SubResource("BoxMesh_u50op")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_xfd7t")
 
 [node name="MeshEyeL" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0.410196, 0.695948, -0.82)
+layers = 2
 mesh = SubResource("CylinderMesh_xmp4u")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_irsv5")
 
 [node name="MeshEyeR" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, -0.358961, 0.78, -0.82)
+layers = 2
 mesh = SubResource("CylinderMesh_rc4ff")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_irsv5")

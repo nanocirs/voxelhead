@@ -11,6 +11,7 @@ extends Entity
 @onready var weapon: Weapon = $Weapon;
 @onready var damage_collider: Area3D = $DamageCollider;
 
+var is_alive: bool = true;
 var enemy_damage_callback: Callable = func(damage_value): damage(damage_value);
 var enemies_attacking: Array[Enemy] = [];
 
@@ -44,6 +45,8 @@ func initialize_player():
 	
 	damage_collider.body_entered.connect(func(entity): on_entity_touching_player(entity));
 	damage_collider.body_exited.connect(func(entity): on_entity_stop_touching_player(entity));
+	
+	is_alive = true;
 	
 	if camera:
 		camera_size_i = camera.size;

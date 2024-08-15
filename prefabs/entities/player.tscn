@@ -53,7 +53,7 @@ height = 3.5
 radius = 1.063
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7pqma"]
-size = Vector3(2.2, 3.3, 2.2)
+size = Vector3(2.5, 3.5, 2.5)
 
 [node name="PlayerBody" type="CharacterBody3D"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
@@ -65,6 +65,7 @@ health_bar = NodePath("HealthBar/ProgressBar")
 
 [node name="SpriteHealthBar" type="Sprite3D" parent="HealthComponent"]
 transform = Transform3D(-3.55863e-08, 0, 0.814119, 0, 0.814119, 0, -0.814119, 0, -3.55863e-08, 0, 3.38011, 0)
+layers = 4
 pixel_size = 0.0005
 billboard = 1
 double_sided = false
@@ -104,6 +105,7 @@ health_component = NodePath("../..")
 
 [node name="MeshPlayer" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+layers = 2
 mesh = SubResource("BoxMesh_3u10u")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_xcw02")
@@ -113,18 +115,21 @@ transform = Transform3D(1.075, 0, 0, 0, 1.075, 0, 0, 0, 1.075, 0, 0, 0)
 
 [node name="Left" type="MeshInstance3D" parent="Mesh/MeshSunglasses"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.368245, 0.956645, -0.819567)
+layers = 2
 mesh = SubResource("PlaneMesh_bqcnf")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_ddndw")
 
 [node name="Mid" type="MeshInstance3D" parent="Mesh/MeshSunglasses"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.026565, 1.05252, -0.826874)
+layers = 2
 mesh = SubResource("PlaneMesh_c3kor")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_ddndw")
 
 [node name="Right" type="MeshInstance3D" parent="Mesh/MeshSunglasses"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.327834, 0.956645, -0.819567)
+layers = 2
 mesh = SubResource("PlaneMesh_bqcnf")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_ddndw")

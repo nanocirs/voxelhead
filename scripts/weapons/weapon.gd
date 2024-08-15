@@ -2,7 +2,7 @@ class_name Weapon
 extends Node3D
 
 signal on_weapon_fired();
-signal on_hit(enemy: Enemy);
+signal on_hit(enemy: Enemy, hit_position: Vector3);
 
 @export var muzzle: Node3D;
 @export var muzzle_flash: OmniLight3D;
@@ -50,8 +50,13 @@ func fire_weapon():
 
 	on_weapon_fired.emit();
 	
-	if not enemies_on_sight.is_empty():
-		on_hit.emit(enemies_on_sight.front());
+	if !enemies_on_sight.is_empty():
+		var enemy_collision_mask: int = 2;
+		var space_state = get_world_3d().direct_space_state;
+		var query = PhysicsRayQueryParameters3D.create(global_position, enemies_on_sight.front().global_position, enemy_collision_mask, [self]);
+		var result = space_state.intersect_ray(query);
+
+		on_hit.emit(enemies_on_sight.front(), result.position);
 
 func on_entity_enter_sight(entity: Node3D):
 	if entity is Enemy:
